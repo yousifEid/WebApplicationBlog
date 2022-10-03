@@ -1,0 +1,62 @@
+﻿@model WebApplicationBlog.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<form asp-controller="Account" asp-action="AddRegister" method="post" enctype="multipart/form-data">
+     @ViewBag.Message
+
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" asp-for="Name" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Gender</label>
+        <div>
+            <input type="radio" asp-for="Gender" value="male" class=""radio-inline""/> male
+            <input type="radio" asp-for="Gender" value="female" class=""radio-inline""/> female
+        </div>
+        <span class="text-danger" asp-validation-for="Gender"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Image</label>
+        <input type="file" asp-for="Photo" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Photo"></span>
+    </div>
+
+    <div class="form-group">
+        <label>DateBirth</label>
+        <input type="date" asp-for="DateBirth" class="form-control"/>
+        <span class="text-danger" asp-validation-for="DateBirth"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Mail</label>
+        <input type="email" asp-for="Mail" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Mail"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" asp-for="Password" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+
+    <div class="form-group">
+        <label>TermsConditions</label>
+        <input type="checkbox" asp-for="TermsConditions" />
+        <span class="text-danger" asp-validation-for="TermsConditions"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
+

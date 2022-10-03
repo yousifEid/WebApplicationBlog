@@ -1,0 +1,38 @@
+﻿@model Blog.DAL.Models.Admin
+@{
+    ViewBag.Title = "DeleteAdmin";
+    @inject IHttpContextAccessor HttpContextAccessor;
+
+}
+
+<h2>DeleteAdmin</h2>
+
+
+<form asp-controller="Admin" asp-action="ConfirmDeleteAdmin" asp-route-id="@Model.Id" method="post">
+    @if (HttpContextAccessor.HttpContext.Session.GetString("IsLoggedIn") == "true")
+    {
+        if (HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "admin")
+        {
+            <h4>Are you sure you want to delete?</h4>
+
+            <ul>
+                <li> @Model.Id </li>
+                <li> @Model.Name </li>
+                <li> @Model.Mail </li>
+            </ul>
+            <button class="btn btn-danger" type="submit">Delete</button>
+        }
+        else
+        {
+            <div class="text-danger">لا تملك صلاحيات كافية للوصول لهذه الصفحة</div>
+        }
+    } 
+    else
+    {
+        <div class="text-danger">يجيب تسجيل الدخول اولا </div>
+    }
+</form>
+
+<div>
+    <a asp-action="Index" asp-controller="Admin" class="btn btn-primary"> Return to Admin list</a>
+</div>

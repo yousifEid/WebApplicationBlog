@@ -1,0 +1,41 @@
+﻿@model DAL.Models.ArticleTags
+@{
+    ViewBag.Title = "CreateArticlesTags";
+    @inject IHttpContextAccessor HttpContextAccessor;
+}
+
+<h2>Create ArticlesTags</h2>
+
+<form asp-controller="ArticleTag" asp-action="AddArticlesTags" method="post">
+    @if (HttpContextAccessor.HttpContext.Session.GetString("IsLoggedIn") == "true")
+    {
+        if (HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "admin")
+        {
+            <div class="form-group">
+                <label>Article</label>
+                @Html.DropDownListFor(m => m.ArticlesId, (SelectList)ViewBag.Articles, new { @class = "form-control" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.ArticlesId)</span>
+            </div>
+
+
+            <div class="form-group">
+                <label>Tags</label>
+                @Html.DropDownListFor(m => m.TagsId, (SelectList)ViewBag.Tags, new { @class = "form-control" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.TagsId)</span>
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        }
+        else
+        {
+            <div class="text-danger">لا تملك صلاحيات كافية للوصول لهذه الصفحة</div>
+        }
+    }
+    else
+    {
+        <div class="text-danger">لا تملك صلاحيات كافية للوصول لهذه الصفحة</div>
+    }
+</form>

@@ -1,0 +1,98 @@
+﻿@using DAL.Models
+@model List<DAL.Models.Articles>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<style type="text/css">
+    body {
+        background: #e7feff;
+    }
+
+    .container {
+        width: 100%;
+        height: auto;
+    }
+
+    .boxTitle {
+        /*width: 8%;
+                    height: 100px;
+                    background: #93a2a2;
+                    margin: 20px;
+                    box-sizing: border-box;
+                    font-size: medium;*/
+
+        text-align: center; /*مكان الخط*/
+        font-size: 22px; /*حجم الخط*/
+        margin-bottom: 10px; /*الهامش في الطرف السفلي من العنصر*/
+        color: black; /*لون اسم المؤلف*/
+        font-size: medium; /*الحجم*/
+    }
+
+    .box {
+        background-color: #93a2a2; /*لون الخلفية*/
+        border: 2px solid black; /*ضبط جميع الإطارات إلى قيمة واحدة،*/
+        margin: 20px; /*تضبط الهوامش في الأطراف الأربعة للعنصر،*/
+        padding: 20px; /*التباعد بين محتوى عنصر وحدوده*/
+        width: 20%; /*تُحدِّد عرض أحد العناصر*/
+        display: inline-block; /*وضع العناصر على نفس السطر*/
+    }
+
+    .tagbox{
+        margin:10px;
+        padding: 5px 10px;
+        background-color: #eee;
+        color: black;
+        border-radius: 25px;
+    }
+
+</style>
+
+<br />
+<h5>المقالات الماضافة حديثا</h5>
+<ol>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@item.Id">
+                @item.Title
+            </a>
+
+            ( @(item.ViewsCount) مشاهدات)
+        </li>
+    }
+</ol>
+
+<br />
+
+<h5>اقرا للمؤلف</h5>
+
+<ol>
+    @foreach (var item in (List<Authors>)@ViewBag.Authors)
+    {
+        <div class="box">
+            <a asp-controller="Author" asp-action="AuthorDetails" asp-route-AuthorName="@item.Name" asp-route-id="@item.Id">
+        <li>
+            <div class="boxTitle">@item.Name</div>
+        </li>
+        <div class="boxTitle">
+            <img src="@item.Photo" height="100">
+        </div>
+        </a>
+        </div>
+    }
+
+</ol>
+<br />
+
+<H5>سحابة الكلمات </H5>
+
+@foreach (Tags item in (List<Tags>)@ViewBag.TagName)
+{
+    <a asp-controller="Tag" asp-action="TagDetails" asp-route-id="@item.Id">
+        <span class="tagbox">@item.Name</span>
+    </a>
+}

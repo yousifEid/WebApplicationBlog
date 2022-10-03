@@ -1,0 +1,17 @@
+﻿@using DAL.Models
+@model DAL.Models.Tags
+@{
+    ViewBag.Title = "TagDetails";
+}
+
+
+    <h2>@Model.Name</h2>
+
+<h5>المقالات التابعة للتصنيف</h5>
+
+@foreach (ArticleTags item in (List<ArticleTags>)@ViewBag.ArticleTitle)
+{
+    <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@item.ArticlesId">
+        <div>@item.Articles.Title</div>
+    </a>
+}

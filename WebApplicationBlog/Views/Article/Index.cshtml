@@ -1,0 +1,58 @@
+﻿@model List<DAL.Models.Articles>
+@{
+    ViewBag.Title = "Index";
+    @inject IHttpContextAccessor HttpContextAccessor;
+}
+
+<h2>Index</h2>
+@if (HttpContextAccessor.HttpContext.Session.GetString("IsLoggedIn") == "true")
+{
+    if (HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "admin" || HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "author")
+    {
+        <a asp-controller="Article" asp-action="CreateArticles">Create New Article</a>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Topic</th>
+                    <th>Photo</th>
+                    <th>ReadTime</th>
+                    <th>Authors</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Topic</td>
+                        <td>
+                            <img src="@item.Photo" height="100" />
+                        </td>
+                        <td>@item.ReadTime</td>
+                        <td>@item.Authors.Name</td>
+
+                        <td>
+                            <a class="btn btn-warning" asp-action="EditArticles" asp-route-id="@item.Id">Edit</a>
+                        </td>
+
+                        <td>
+                            <a class="btn btn-danger" asp-action="DeleteArticles" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="text-danger">لا تملك صلاحيات كافية للوصول لهذه الصفحة</div>
+    }
+}
+else
+{
+    <div class="text-danger">يجيب تسجيل الدخول اولا </div>
+}

@@ -1,0 +1,60 @@
+﻿@model DAL.Models.Articles
+@{
+    ViewBag.Title = "CreateArticles";
+    @inject IHttpContextAccessor HttpContextAccessor;
+}
+
+<h2>Create Articles</h2>
+
+<form asp-controller="Article" asp-action="AddArticles" method="post" enctype="multipart/form-data">
+    @if (HttpContextAccessor.HttpContext.Session.GetString("IsLoggedIn") == "true")
+    {
+        if (HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "admin" || HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "author")
+        {
+
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" asp-for="Title" class="form-control" />
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Topic</label>
+                <input type="text" asp-for="Topic" class="form-control" />
+                <span class="text-danger" asp-validation-for="Topic"></span>
+            </div>
+
+            <div class="form-group">
+                <label>photo</label>
+                <input type="file" asp-for="Photo" class="form-control" />
+                <span class="text-danger" asp-validation-for="Photo"></span>
+            </div>
+
+            <div class="form-group">
+                <label>ReadTime</label>
+                <input type="text" asp-for="ReadTime" class="form-control" />
+                <span class="text-danger" asp-validation-for="ReadTime"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Authors</label>
+                @Html.DropDownListFor(m => m.AuthorsId, (SelectList)ViewBag.Authors, new { @class = "form-control" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.AuthorsId)</span>
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        }
+        else
+        {
+            <div class="text-danger">لا تملك صلاحيات كافية للوصول لهذه الصفحة</div>
+        }
+
+    }
+    else
+    {
+        <div class="text-danger">يجيب تسجيل الدخول اولا </div>
+    }
+</form>

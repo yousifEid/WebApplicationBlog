@@ -1,0 +1,36 @@
+﻿@model DAL.Models.ArticleTags
+@{
+    ViewBag.Title = "DeleteArticlesTags";
+    @inject IHttpContextAccessor HttpContextAccessor;
+
+}
+
+<h2>Delete ArticlesTags</h2>
+
+<form asp-controller="ArticleTag" asp-action="ConfirmDeleteArticlesTags" asp-route-id="@Model.Id" method="post">
+    @if (HttpContextAccessor.HttpContext.Session.GetString("IsLoggedIn") == "true")
+    {
+        if (HttpContextAccessor.HttpContext.Session.GetString("LoggedInUserType") == "admin")
+        {
+            <h4>Are you sure you want to delete?</h4>
+
+            <ul>
+                <li> @Model.Id </li>
+                <li> @Model.Articles.Title </li>
+                <li> @Model.Tags.Name </li>
+            </ul>
+
+            <button class="btn btn-danger" type="submit">Delete</button>
+        }
+        else
+        {
+            <div class="text-danger">لا تملك صلاحيات كافية للوصول لهذه الصفحة</div>
+        }
+    }
+    else
+    {
+        <div class="text-danger">يجيب تسجيل الدخول اولا </div>
+    }
+</form>
+
+<a asp-action="Index" asp-controller="Articles" class="btn btn-primary"> Return to ArticlesTags list</a>
