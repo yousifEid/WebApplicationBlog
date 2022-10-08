@@ -1,52 +1,15 @@
-html {
-    font-size: 14px;
+.card-box {
+    padding: 50px;
+    border: 50px;
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
+.authers-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    margin-bottom: 60px;
-}
-
-
-
-.box-left {
-    width: 74%;
-    display: inline-block;
-}
-
-.box-right {
-    width: 25%;
-    display: inline-block;
-}
-
-
-.boxtitle {
-    color: #168a5e;
-}
-
-.img-container {
-    text-align: center;
-}
-
-.img {
-    border: 1px solid red;
-    height: 150px;
-}
-
-.title{
-    margin-top: 15px;
+.container-author {
+    width: 30%;
+    flex: 0 0 33%;
 }
