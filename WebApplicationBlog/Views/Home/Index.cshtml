@@ -9,7 +9,7 @@
 
 <style type="text/css">
     body {
-        background: #e7feff;
+        background: #e7feff !important;
     }
 
     .container {
@@ -19,11 +19,11 @@
 
     .boxTitle {
         /*width: 8%;
-                                height: 100px;
-                                background: #93a2a2;
-                                margin: 20px;
-                                box-sizing: border-box;
-                                font-size: medium;*/
+                                        height: 100px;
+                                        background: #93a2a2;
+                                        margin: 20px;
+                                        box-sizing: border-box;
+                                        font-size: medium;*/
 
         text-align: center; /*مكان الخط*/
         font-size: 22px; /*حجم الخط*/
@@ -52,45 +52,11 @@
 </style>
 
 
-<!-- Begin Nav
-================================================== -->
-<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="container">
-        <!-- begin logo -->
-        <a class="navbar-brand" href="index.html">
-            <img src="assets/img/logo.png" alt="">
-        </a>
-        <!-- end logo -->
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <!-- begin menu -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Stories <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="post.html">Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="author.html">Author</a>
-                </li>
-            </ul>
-            <!-- end menu -->
-            <!-- begin search -->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
-            </form>
-            <!-- end search -->
-        </div>
-    </div>
-</nav>
-<!-- End Nav
-================================================== -->
 <!-- Begin Top Author Page
 ================================================== -->
+
+<h1>اقرا للمؤلف</h1>
+
 
 <div class="authers-list">
     @foreach (var item in (List<Authors>)@ViewBag.Authors)
@@ -123,52 +89,43 @@
 <!-- End Author Posts
 ================================================== -->
 
+<h2>المقالات المضافة حديثا</h2>
+@foreach (var item in Model) 
+{
+    <div class="card">
+        <div class="row">
+            <div class="col-md-5 wrapthumbnail">
+                <a href="post.html">
+                    <div class="thumbnail body" width=200px style="background-image:url('@item.Photo');">
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-7">
+                <div class="card-block">
+                    <h2 class="card-title">
 
+                        <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@item.Id">
+                            @item.Title
+                        </a>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    </h2>
+                    <div class="metafooter">
+                        <div class="wrapfooter">
+                            <span class="meta-footer-thumb">
+                                <a href="author.html"><img class="author-thumb" src="@item.Authors.Photo" alt=""></a>
+                            </span>
+                            <span class="author-meta">
+                                <span class="post-name"><a href="author.html">@item.Authors.Name</a></span><br />
+                                <span class="post-date">22 July 2017</span><span class="dot"></span><span class="post-read">6 min read</span>
+                            </span>
+                            <span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -187,7 +144,7 @@
 
 
 <br />
-<h5>المقالات الماضافة حديثا</h5>
+<h5>المقالات المضافة حديثا</h5>
 <ol>
     @foreach (var item in Model)
     {
@@ -196,32 +153,16 @@
                 @item.Title
             </a>
 
-            ( @(item.ViewsCount) مشاهدات)
+            ( @(item.ViewsCount)مشاهدة)
         </li>
     }
 </ol>
 
 <br />
 
-<h5>اقرا للمؤلف</h5>
 
-<ol>
-    @foreach (var item in (List<Authors>)@ViewBag.Authors)
-    {
-        <div class="box">
-            <a asp-controller="Author" asp-action="AuthorDetails" asp-route-AuthorName="@item.Name" asp-route-id="@item.Id">
-        <li>
-            <div class="boxTitle">@item.Name</div>
-        </li>
-        <div class="boxTitle">
-            <img src="@item.Photo" height="100">
-        </div>
-        </a>
-        </div>
-    }
 
-</ol>
-<br />
+
 
 <H5>سحابة الكلمات </H5>
 
