@@ -73,5 +73,10 @@ namespace BLL.Domains
         {
             return _articlesRepository.GetTagsByArticleId(id);
         }
+
+        public List<Articles> SearchResult(Articles articles)
+        {
+            return _articlesRepository.SearchResult(articles);
+        }
     }
 }

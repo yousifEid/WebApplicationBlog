@@ -128,5 +128,23 @@ namespace WebApplicationBlog.Controllers
             ViewBag.TagName = tags;
             return View(article);
         }
+
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Search(Articles article)
+        {
+            var foundArticle = _articlesDomain.SearchResult(article);
+            if (foundArticle!= null)
+            {
+                ViewBag.IsSearch = true;
+                ViewBag.FoundArticle = foundArticle;
+            }
+            return View(article);
+        }
     }
 }

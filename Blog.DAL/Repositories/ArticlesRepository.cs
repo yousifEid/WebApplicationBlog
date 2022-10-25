@@ -98,5 +98,13 @@ namespace DAL.Repositories
             var tags = _db.ArticleTags.Where(e => e.ArticlesId == id).Include(e => e.Tags).ToList();
             return tags;
         }
+
+        public List<Articles> SearchResult(Articles articles)
+        {
+            List<Articles> foundArticles = _db.Articles.Where(e => e.Title.Contains(articles.Title))
+                                     .Include(e => e.Authors)
+                                     .ToList();
+            return foundArticles;
+        }
     }
 }

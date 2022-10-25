@@ -13,3 +13,31 @@
     width: 30%;
     flex: 0 0 33%;
 }
+
+.img-size {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+}
+
+.title-size {
+    font-size: 23px;
+}
+
+
+.background-color-blue {
+    background-color: #eee !important;
+}
+
+.img-article {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100%;
+    
+}
+
+.box-search {
+    display: inline-block;
+}
