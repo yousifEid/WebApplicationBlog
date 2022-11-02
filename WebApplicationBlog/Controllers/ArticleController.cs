@@ -148,16 +148,6 @@ namespace WebApplicationBlog.Controllers
             return View(article);
         }
 
-        [HttpGet]
-        public IActionResult SearchTopic(Articles articles,int pageIndex=1)
-        {
-            var foundArticlesTopic = _articlesDomain.SearchTopicResult(articles, pageIndex, 3);
-            if (foundArticlesTopic!=null)
-            {
-                ViewBag.IsSearch = true;
-                ViewBag.FoundArticleTopic = foundArticlesTopic;
-            }
-            return View(articles);
-        }
+        
     }
 }

@@ -127,28 +127,6 @@ namespace DAL.Repositories
             return model; 
         }
 
-        public PaginationViewModel SearchTopicResult(Articles articles, int pageIndex,int pageSize)
-        {
-            var query = _db.Articles.Where(e => e.Topic.Contains(articles.Topic));
-
-            List<Articles> foundArticles = query.Include(e => e.Authors)
-                                              .Skip((pageIndex - 1) * pageSize)
-                                              .Take(pageSize)
-                                              .OrderBy(e => e.Id)
-                                              .ToList();
-
-            var itemsCount = query.Count();
-            var totalPages = ((double)itemsCount / (double)pageSize);
-            var model = new PaginationViewModel()
-            {
-                Data = foundArticles,
-                ItemsCount = itemsCount,
-                TotalPages = (int)Math.Ceiling(totalPages),
-                PageIndex = pageIndex,
-                PageSize = pageSize
-            };
-
-            return model;
-        }
+       
     }   
 }

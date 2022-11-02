@@ -80,9 +80,6 @@ namespace BLL.Domains
             return _articlesRepository.SearchResult(articles, pageIndex, pageSize);
         }
 
-        public PaginationViewModel SearchTopicResult(Articles articles, int pageIndex, int pageSize)
-        {
-            return _articlesRepository.SearchTopicResult(articles, pageIndex, pageSize);
-        }
+       
     }
 }
