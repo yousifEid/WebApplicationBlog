@@ -129,22 +129,35 @@ namespace WebApplicationBlog.Controllers
             return View(article);
         }
 
-        [HttpGet]
-        public IActionResult Search()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult Search()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public IActionResult Search(Articles article)
+        //[HttpPost]
+        [HttpGet]
+        public IActionResult Search(Articles article, int pageIndex = 1)
         {
-            var foundArticle = _articlesDomain.SearchResult(article);
+            var foundArticle = _articlesDomain.SearchResult(article, pageIndex, 3);
             if (foundArticle!= null)
             {
                 ViewBag.IsSearch = true;
                 ViewBag.FoundArticle = foundArticle;
             }
             return View(article);
+        }
+
+        [HttpGet]
+        public IActionResult SearchTopic(Articles articles,int pageIndex=1)
+        {
+            var foundArticlesTopic = _articlesDomain.SearchTopicResult(articles, pageIndex, 3);
+            if (foundArticlesTopic!=null)
+            {
+                ViewBag.IsSearch = true;
+                ViewBag.FoundArticleTopic = foundArticlesTopic;
+            }
+            return View(articles);
         }
     }
 }

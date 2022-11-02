@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using Blog.DAL.ViewModels;
+using DAL.Models;
 using DAL.Repositories;
 using DAL.Repositories;
 using System;
@@ -74,9 +75,14 @@ namespace BLL.Domains
             return _articlesRepository.GetTagsByArticleId(id);
         }
 
-        public List<Articles> SearchResult(Articles articles)
+        public PaginationViewModel SearchResult(Articles articles, int pageIndex, int pageSize)
         {
-            return _articlesRepository.SearchResult(articles);
+            return _articlesRepository.SearchResult(articles, pageIndex, pageSize);
+        }
+
+        public PaginationViewModel SearchTopicResult(Articles articles, int pageIndex, int pageSize)
+        {
+            return _articlesRepository.SearchTopicResult(articles, pageIndex, pageSize);
         }
     }
 }

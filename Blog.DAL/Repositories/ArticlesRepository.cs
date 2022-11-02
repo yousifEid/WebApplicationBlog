@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blog.DAL.ViewModels;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace DAL.Repositories
 {
@@ -99,12 +101,54 @@ namespace DAL.Repositories
             return tags;
         }
 
-        public List<Articles> SearchResult(Articles articles)
+        public PaginationViewModel SearchResult(Articles articles, int pageIndex, int pageSize)
         {
-            List<Articles> foundArticles = _db.Articles.Where(e => e.Title.Contains(articles.Title))
-                                     .Include(e => e.Authors)
-                                     .ToList();
-            return foundArticles;
+            var query = _db.Articles.Where(e => e.Title.Contains(articles.Title) 
+                                             || e.Topic.Contains(articles.Title) );
+
+            List<Articles> foundArticles = query.Include(e => e.Authors)
+                                                .Skip((pageIndex - 1) * pageSize)
+                                                .Take(pageSize)
+                                                .OrderBy(e => e.Id)
+                                                .ToList();
+
+            var itemsCount = query.Count();
+            var totalPages = ((double)itemsCount / (double)pageSize);
+
+            var model = new PaginationViewModel()
+            {
+                Data = foundArticles,
+                ItemsCount = itemsCount,
+                TotalPages = (int)Math.Ceiling(totalPages),
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+
+            return model; 
         }
-    }
+
+        public PaginationViewModel SearchTopicResult(Articles articles, int pageIndex,int pageSize)
+        {
+            var query = _db.Articles.Where(e => e.Topic.Contains(articles.Topic));
+
+            List<Articles> foundArticles = query.Include(e => e.Authors)
+                                              .Skip((pageIndex - 1) * pageSize)
+                                              .Take(pageSize)
+                                              .OrderBy(e => e.Id)
+                                              .ToList();
+
+            var itemsCount = query.Count();
+            var totalPages = ((double)itemsCount / (double)pageSize);
+            var model = new PaginationViewModel()
+            {
+                Data = foundArticles,
+                ItemsCount = itemsCount,
+                TotalPages = (int)Math.Ceiling(totalPages),
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+
+            return model;
+        }
+    }   
 }

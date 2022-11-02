@@ -1,41 +1,20 @@
 ﻿@model DAL.Models.Articles
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "SearchTopic";
 }
 
-<h2>Search</h2>
+<h2>Search Topic</h2>
 
-<style type="text/css">
-    .box {
-        padding: 100px;
-        border: 100px;
-        background-color: #eee;
-        border: 2px solid #eee;
-        margin: 20px;
-        padding: 20px;
-        width: 20%;
-    }
-
-    .box-img {
-        height: 200px;
-        background-position: center;
-        background-size: 100% auto;
-    }
-
-    .box-title {
-    }
-</style>
-
-<form asp-controller="Article" asp-action="Search" method="get">
+<form asp-controller="Article" asp-action="SearchTopic" method="get">
 
     <div class="form-group">
-        <label>Article Title</label>
-        <input type="text" asp-for="Title" class="form-control" />
-        <span class="text-danger" asp-validation-for="Title"></span>
+        <label>Article Topic</label>
+        <input type="text" asp-for="Topic" class="form-control" />
+        <span class="text-danger" asp-validation-for="Topic"></span>
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary">Search Topic</button>
     </div>
 
 </form>
@@ -43,11 +22,11 @@
 
 @if (ViewBag.IsSearch == true)
 {
-    if (ViewBag.FoundArticle.Data.Count != 0)
+    if (ViewBag.FoundArticleTopic.Data.Count != 0)
     {
-        <div class="text-success">search results count <b>@ViewBag.FoundArticle.ItemsCount</b></div>
+        <div class="text-success">search results count <b>@ViewBag.FoundArticleTopic.ItemsCount</b></div>
         <div class="row">
-            @foreach (var item in (List<DAL.Models.Articles>)ViewBag.FoundArticle.Data)
+            @foreach (var item in (List<DAL.Models.Articles>)ViewBag.FoundArticleTopic.Data)
             {
                 <div class="col-6">
                     <div class="card m-2 background-color-blue">
@@ -88,14 +67,12 @@
         </div>
 
         <ul class="pagination">
-            @*<li class="page-item"><a class="page-link" href="#">Previous</a></li>*@
-            @for (int i = 1; i <= ViewBag.FoundArticle.TotalPages; i++)
+            @for (int i = 1; i <= ViewBag.FoundArticleTopic.TotalPages; i++)
             {
-                <li class="page-item @(i == ViewBag.FoundArticle.PageIndex ? "active" : "")">
-                    <a class="page-link" asp-controller="Article" asp-action="Search" asp-route-Title="@Model.Title" asp-route-pageIndex="@i">@i</a>
+                <li class="page-item @(i == ViewBag.FoundArticleTopic.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-controller="Article" asp-action="SearchTopic" asp-route-Topic="@Model.Topic" asp-route-pageIndex="@i">@i</a>
                 </li>
             }
-            @*<li class="page-item"><a class="page-link" href="#">Next</a></li>*@
         </ul>
 
     }
